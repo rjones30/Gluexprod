@@ -30,7 +30,9 @@ RUN tar xf local.tar.gz -C /
 RUN rm cilogon-osg.pem
 RUN rm local.tar.gz
 RUN rm -rf /hdpm
-VOLUME /cvmfs
+
+# make the cvmfs filesystem visible inside the container
+VOLUME /cvmfs/oasis.opensciencegrid.org
 
 # link to the desired release
 RUN ln -s /cvmfs/oasis.opensciencegrid.org/gluex/builds/6.7.2017 /usr/local/.hdpm
