@@ -8,8 +8,7 @@
 # usage: [as root] $ docker build Dockerfile .
 #
 
-#FROM centos
-FROM 7cbcdfbb57ed
+FROM centos
 
 # install a few utility rpms
 RUN yum -y install bind-utils util-linux which wget tar procps less file gcc
