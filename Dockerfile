@@ -24,11 +24,13 @@ RUN mv hdpm-0.6.1 hdpm
 RUN /hdpm/bin/hdpm show -p | sh
 
 # create mount point for sim-recon, simlinks in /usr/local
+ADD cilogon-osg.pem /
 RUN wget --ca-certificate=cilogon-osg.pem https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
 RUN tar xf local.tar.gz -C /
+RUN rm cilogon-osg.pem
 RUN rm local.tar.gz
 RUN rm -rf /hdpm
-VOLUME /mnt/Gluex
+VOLUME /cvmfs
 
 # link to the desired release
-RUN ln -s /mnt/Gluex/builds/6.7.2017 /usr/local/.hdpm
+RUN ln -s /cvmfs/oasis.opensciencegrid.org/gluex/builds/6.7.2017 /usr/local/.hdpm
