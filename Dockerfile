@@ -38,4 +38,4 @@ VOLUME /cvmfs/oasis.opensciencegrid.org
 RUN ln -s /cvmfs/oasis.opensciencegrid.org/gluex/builds/6.7.2017 /usr/local/.hdpm
 
 # copy /environment to /environment.sh in case singularity build overwrites /environment
-COPY /environment /environment.sh
+RUN cp /environment /environment.sh
