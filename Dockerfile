@@ -11,7 +11,7 @@
 FROM centos
 
 # install a few utility rpms
-RUN yum -y install bind-utils util-linux which wget tar procps less file gcc
+RUN yum -y install bind-utils util-linux which wget tar procps less file gcc strace
 
 # install the hdpm package builder
 ENV GLUEX_TOP /usr/local
@@ -36,6 +36,3 @@ VOLUME /cvmfs/oasis.opensciencegrid.org
 
 # link to the desired release
 RUN ln -s /cvmfs/oasis.opensciencegrid.org/gluex/builds/6.7.2017 /usr/local/.hdpm
-
-# copy /environment to /environment.sh in case singularity build overwrites /environment
-RUN cp /environment /environment.sh
