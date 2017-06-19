@@ -11,14 +11,14 @@
 FROM centos
 
 # install a few utility rpms
-RUN yum -y install bind-utils util-linux which wget tar procps less file gcc strace
+RUN yum -y install bind-utils util-linux which wget tar procps less file dump gcc strace openssl-server gcc-c++
 
 # install the hdpm package builder
 ENV GLUEX_TOP /usr/local
-ADD https://halldweb.jlab.org/dist/hdpm/hdpm-0.6.1.linux.tar.gz /
-RUN tar xf hdpm-0.6.1.linux.tar.gz
-RUN rm hdpm-0.6.1.linux.tar.gz
-RUN mv hdpm-0.6.1 hdpm
+ADD https://halldweb.jlab.org/dist/hdpm/hdpm-0.7.0.linux.tar.gz /
+RUN tar xf hdpm-0.7.0.linux.tar.gz
+RUN rm hdpm-0.7.0.linux.tar.gz
+RUN mv hdpm-0.7.0 hdpm
 
 # discover and install sim-recon dependencies
 RUN /hdpm/bin/hdpm show -p | sh
@@ -34,5 +34,8 @@ RUN rm -rf /hdpm
 # make the cvmfs filesystem visible inside the container
 VOLUME /cvmfs/oasis.opensciencegrid.org
 
-# link to the desired release
+# allow user to add things to /usr/local
+RUN chmod ugo+rwx /usr/local
+
+# set the default build for sim_recon
 RUN ln -s /cvmfs/oasis.opensciencegrid.org/gluex/builds/6.7.2017 /usr/local/.hdpm
