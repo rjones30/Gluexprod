@@ -8,7 +8,7 @@
 # usage: [as root] $ docker build Dockerfile .
 #
 
-FROM centos
+FROM centos:7
 
 # install a few utility rpms
 RUN yum -y install bind-utils util-linux which wget tar procps less file dump gcc strace openssl-server gcc-c++
