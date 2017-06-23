@@ -10,6 +10,7 @@
 import sys
 import re
 import os
+import subprocess
 
 def usage():
    """
@@ -346,7 +347,7 @@ def validate_customizations():
          break
    return 0
 
-def execute(args):
+def execute(args, do_slice):
    """
    This method is normally the only one that the user job script will need
    to invoke directly. It provides the core functionality of the user job
