@@ -92,7 +92,7 @@ def do_info(arglist):
    Prints a compact summary of information about the job.
    """
    lines = 0
-   for line in open(__file__):
+   for line in open(sys.argv[0]):
       lines += 1
       if lines == 1:
          continue
@@ -332,7 +332,7 @@ def validate_customizations():
    otherwise refuse to continue.
    """
    lines = 0
-   for line in open(__file__):
+   for line in open(sys.argv[0]):
       if re.search(r"TEMPLATE JOB SCRIPT FOR GLUEX OSG PRODUCTION", line) or\
          re.search(r"YOU MUST REPLACE .* ABOVE WITH A UNIQUE NAME", line) or\
          re.search(r"CUSTOMIZE THE SCRIPT SO THE JOB DOES WHAT YO", line) or\
