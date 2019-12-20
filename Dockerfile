@@ -17,11 +17,10 @@ RUN yum -y install motif-devel libXpm-devel libXmu-devel libXp-devel
 
 # install the osg worker node client packages
 RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-RUN yum -y install yum-plugin-priorities
 RUN rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
-RUN yum -y install osg-wn-client
-
 RUN yum -y install qt qt-x11 qt-devel
+RUN yum -y install yum-plugin-priorities
+RUN yum -y install osg-wn-client
 
 # install the hdpm package builder
 ENV GLUEX_TOP /usr/local
