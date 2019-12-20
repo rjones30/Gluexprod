@@ -13,12 +13,12 @@ FROM centos:latest
 # install a few utility rpms
 RUN yum -y install bind-utils util-linux which wget tar procps less file dump gcc gcc-c++ gdb strace openssh-server
 RUN yum -y install vim-common vim-filesystem vim-minimal vim-enhanced vim-X11
-RUN yum -y install qt qt-x11 qt-devel
 RUN yum -y install motif-devel libXpm-devel libXmu-devel libXp-devel
 
 # install the osg worker node client packages
 RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 RUN yum install -y yum-plugin-priorities
+RUN yum install -y qt qt-x11 qt-devel
 RUN rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
 RUN yum install -y osg-wn-client
 
