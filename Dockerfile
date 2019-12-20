@@ -16,7 +16,7 @@ RUN yum -y install vim-common vim-filesystem vim-minimal vim-enhanced vim-X11
 RUN yum -y install motif-devel libXpm-devel libXmu-devel libXp-devel
 
 # some rpms are only available through Centos repo
-RUN rpm -Uvh https://zeus.phys.uconn.edu/halld/gridwork/centos-release-7-7.1908.0.el7.centos.x86_64.rpm
+RUN rpm -Uvh http://zeus.phys.uconn.edu/halld/gridwork/centos-release-7-7.1908.0.el7.centos.x86_64.rpm
 RUN yum -y install qt qt-x11 qt-devel
 
 # install the osg worker node client packages
