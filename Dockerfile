@@ -23,7 +23,7 @@ RUN tar xf libtbb.tgz -C /
 RUN rm libtbb.tgz
 
 # install the osg worker node client packages
-#RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 RUN yum -y install yum-plugin-priorities
 RUN rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
 RUN yum -y install osg-wn-client
