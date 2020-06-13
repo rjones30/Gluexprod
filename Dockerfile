@@ -12,21 +12,21 @@
 FROM centos:7
 
 # install a few utility rpms
-RUN yum --disablerepo=epel -y install bind-utils util-linux which wget tar procps less file dump gcc gcc-c++ gdb gdb-gdbserver strace openssh-server
-RUN yum --disablerepo=epel -y install vim-common vim-filesystem docker-io-vim vim-minimal vim-enhanced vim-X11
-RUN yum --disablerepo=epel -y install qt qt-x11 qt-devel
-RUN yum --disablerepo=epel -y install motif-devel libXpm-devel libXmu-devel libXp-devel
-RUN yum --disablerepo=epel -y install java-1.8.0-openjdk
-RUN yum --disablerepo=epel -y install blas
+RUN yum -y install bind-utils util-linux which wget tar procps less file dump gcc gcc-c++ gdb gdb-gdbserver strace openssh-server
+RUN yum -y install vim-common vim-filesystem docker-io-vim vim-minimal vim-enhanced vim-X11
+RUN yum -y install qt qt-x11 qt-devel
+RUN yum -y install motif-devel libXpm-devel libXmu-devel libXp-devel
+RUN yum -y install java-1.8.0-openjdk
+RUN yum -y install blas
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/libtbb.tgz
 RUN tar xf libtbb.tgz -C /
 RUN rm libtbb.tgz
 
 # install the osg worker node client packages
-RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-RUN yum --disablerepo=epel -y install yum-plugin-priorities
+#RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+RUN yum -y install yum-plugin-priorities
 RUN rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
-RUN yum --disablerepo=epel -y install osg-wn-client
+RUN yum -y install osg-wn-client
 RUN rpm -Uvh https://zeus.phys.uconn.edu/halld/gridwork/dcache-srmclient-3.0.11-1.noarch.rpm
 
 # install the hdpm package builder
@@ -37,10 +37,10 @@ RUN rm hdpm-0.7.2.linux.tar.gz
 RUN mv hdpm-0.7.2 hdpm
 
 # install some additional packages that might be useful
-RUN yum --disablerepo=epel -y install apr apr-util atlas autoconf automake bc cmake git scons bzip2-devel
-RUN yum --disablerepo=epel -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mariadb mariadb-libs mariadb-devel
-RUN yum --disablerepo=epel -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-NamespaceSupport perl-XML-Parser perl-XML-SAX perl-XML-SAX-Base perl-XML-Simple perl-XML-Writer
-RUN yum --disablerepo=epel -y install subversion subversion-libs
+RUN yum -y install apr apr-util atlas autoconf automake bc cmake git scons bzip2-devel
+RUN yum -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mariadb mariadb-libs mariadb-devel
+RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-NamespaceSupport perl-XML-Parser perl-XML-SAX perl-XML-SAX-Base perl-XML-Simple perl-XML-Writer
+RUN yum -y install subversion subversion-libs
 
 # create mount point for sim-recon, simlinks in /usr/local
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
