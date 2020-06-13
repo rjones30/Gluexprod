@@ -4,7 +4,7 @@
 #
 # author: richard.t.jones at uconn.edu
 # version: june 7, 2017
-# updated: june 13, 2020
+# updated: june 13, 2020 
 #
 # usage: [as root] $ docker build Dockerfile .
 #
