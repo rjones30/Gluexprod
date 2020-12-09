@@ -19,7 +19,7 @@ RUN yum -y install motif-devel libXpm-devel libXmu-devel libXp-devel
 RUN yum -y install java-1.8.0-openjdk
 RUN yum -y install blas
 RUN yum -y install python3 python3-devel python3-pip
-RUN yum -y install posgresql-devel
+RUN yum -y install postgresql-devel
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/libtbb.tgz
 RUN tar xf libtbb.tgz -C /
 RUN rm libtbb.tgz
