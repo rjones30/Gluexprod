@@ -48,7 +48,7 @@ RUN yum -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mar
 RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-NamespaceSupport perl-XML-Parser perl-XML-SAX perl-XML-SAX-Base perl-XML-Simple perl-XML-Writer
 RUN yum -y install subversion subversion-libs
 RUN yum -y install python2-pip
-RUN pip2 install builtins
+RUN pip2 install future
 RUN pip3 install psycopg2
 
 # create mount point for sim-recon, simlinks in /usr/local
