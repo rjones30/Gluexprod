@@ -18,7 +18,7 @@ RUN yum -y install qt qt-x11 qt-devel
 RUN yum -y install motif-devel libXpm-devel libXmu-devel libXp-devel
 RUN yum -y install java-1.8.0-openjdk
 RUN yum -y install blas
-RUN yum -y install python3 python3-devel python3-pip
+RUN yum -y install python3 python3-devel python3-pip python2-pip
 RUN yum -y install postgresql-devel
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/libtbb.tgz
 RUN tar xf libtbb.tgz -C /
@@ -47,6 +47,7 @@ RUN yum -y install apr apr-util atlas autoconf automake bc cmake git scons bzip2
 RUN yum -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mariadb mariadb-libs mariadb-devel
 RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-NamespaceSupport perl-XML-Parser perl-XML-SAX perl-XML-SAX-Base perl-XML-Simple perl-XML-Writer
 RUN yum -y install subversion subversion-libs
+RUN pip2 install builtins
 RUN pip3 install psycopg2
 
 # create mount point for sim-recon, simlinks in /usr/local
