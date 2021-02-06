@@ -50,8 +50,8 @@ RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-
 RUN yum -y install subversion subversion-libs
 RUN yum -y install python2-pip python-devel
 RUN yum -y install valgrind
-RUN pip2 install future numpy matplotlib
-RUN pip3 install psycopg2 numpy matplotlib
+RUN pip2 install future numpy
+RUN pip3 install psycopg2 numpy
 
 # create mount point for sim-recon, simlinks in /usr/local
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
