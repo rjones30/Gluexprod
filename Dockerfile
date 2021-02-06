@@ -50,10 +50,10 @@ RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-
 RUN yum -y install subversion subversion-libs
 RUN yum -y install python2-pip python-devel
 RUN yum -y install valgrind
-RUN pip2 install --upgrade pip
 RUN pip2 install future
-RUN pip3 install --upgrade pip
 RUN pip3 install psycopg2
+RUN pip2 install --upgrade pip
+RUN pip3 install --upgrade pip
 RUN python3 -m pip install numpy==1.19.5
 RUN python -m pip install numpy==1.19.5
 
