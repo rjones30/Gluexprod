@@ -52,8 +52,8 @@ RUN yum -y install python2-pip python-devel
 RUN yum -y install valgrind
 RUN pip2 install future
 RUN pip3 install psycopg2
-RUN python -m pip install numpy==
-RUN python3 -m pip install numpy==
+RUN python -m pip install numpy==1.19.5
+RUN python3 -m pip install numpy==1.19.5
 
 # create mount point for sim-recon, simlinks in /usr/local
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
