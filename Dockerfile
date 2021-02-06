@@ -55,7 +55,7 @@ RUN pip3 install psycopg2
 RUN pip2 install --upgrade pip
 RUN pip3 install --upgrade pip
 RUN python3 -m pip install numpy==1.19.5
-RUN python -m pip install numpy==1.19.5
+RUN python -m pip install numpy==1.16.6
 
 # create mount point for sim-recon, simlinks in /usr/local
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
