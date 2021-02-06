@@ -33,7 +33,8 @@ RUN sed -i 's/^metalink/#metalink/' /etc/yum.repos.d/epel.repo
 RUN yum -y install yum-plugin-priorities
 RUN rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
 RUN yum -y install osg-wn-client
-RUN rpm -Uvh https://zeus.phys.uconn.edu/halld/gridwork/dcache-srmclient-3.0.11-1.noarch.rpm
+RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/dcache-srmclient-3.0.11-1.noarch.rpm
+RUN rpm -Uvh dcache-srmclient-3.0.11-1.noarch.rpm
 
 # install the hdpm package builder
 ENV GLUEX_TOP /usr/local
