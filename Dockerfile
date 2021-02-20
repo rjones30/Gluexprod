@@ -17,7 +17,7 @@ RUN yum -y install vim-common vim-filesystem docker-io-vim vim-minimal vim-enhan
 RUN yum -y install qt qt-x11 qt-devel
 RUN yum -y install motif-devel libXpm-devel libXmu-devel libXp-devel
 RUN yum -y install java-1.8.0-openjdk
-RUN yum -y install blas
+RUN yum -y install blas lapack
 RUN yum -y install python3 python3-devel python3-pip
 RUN yum -y install postgresql-devel
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/libtbb.tgz
