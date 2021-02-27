@@ -50,6 +50,7 @@ RUN yum -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mar
 RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-NamespaceSupport perl-XML-Parser perl-XML-SAX perl-XML-SAX-Base perl-XML-Simple perl-XML-Writer
 RUN yum -y install subversion subversion-libs
 RUN yum -y install python2-pip python-devel
+RUN yum -y install hdf5 hdf5-devel
 RUN yum -y install valgrind
 RUN pip2 install future numpy==1.16.6
 RUN pip3 install psycopg2
