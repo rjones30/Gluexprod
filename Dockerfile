@@ -44,6 +44,22 @@ RUN tar xf hdpm-0.7.2.linux.tar.gz
 RUN rm hdpm-0.7.2.linux.tar.gz
 RUN mv hdpm-0.7.2 hdpm
 
+# install the scl devtoolset packages to get more advanced gnu compilers
+RUN yum -y install devtoolset-4-runtime devtoolset-4-gcc-gdb-plugin devtoolset-4-gcc-gfortran devtoolset-4-gcc-c++ devtoolset-4-gcc 
+RUN yum -y install devtoolset-4-gcc-plugin-devel devtoolset-4-libstdc++-devel devtoolset-4-libquadmath-devel
+RUN yum -y install devtoolset-6-gcc-gdb-plugin-6.3.1-3.1.el7.x86_64 devtoolset-6-gcc-gfortran-6.3.1-3.1.el7.x86_64 devtoolset-6-runtime-6.1-1.el7.x86_64
+RUN yum -y install devtoolset-6-libquadmath-devel-6.3.1-3.1.el7.x86_64 devtoolset-6-libstdc++-devel-6.3.1-3.1.el7.x86_64 devtoolset-6-gcc-plugin-devel-6.3.1-3.1.el7.x86_64
+RUN yum -y install devtoolset-6-gcc-6.3.1-3.1.el7.x86_64 devtoolset-6-binutils-2.27-12.el7.1.x86_64 devtoolset-6-gcc-c++-6.3.1-3.1.el7.x86_64
+RUN yum -y install devtoolset-7-gcc-c++-7.3.1-5.16.el7.x86_64 devtoolset-7-libquadmath-devel-7.3.1-5.16.el7.x86_64 devtoolset-7-libstdc++-devel-7.3.1-5.16.el7.x86_64
+RUN yum -y install devtoolset-7-gcc-gdb-plugin-7.3.1-5.16.el7.x86_64 devtoolset-7-binutils-2.28-11.el7.x86_64 devtoolset-7-gcc-plugin-devel-7.3.1-5.16.el7.x86_64
+RUN yum -y install devtoolset-7-gcc-7.3.1-5.16.el7.x86_64 devtoolset-7-runtime-7.1-4.el7.x86_64 devtoolset-6-binutils-2.27-12.el7.1.x86_64 devtoolset-7-gcc-gfortran-7.3.1-5.16.el7.x86_64
+RUN yum -y install devtoolset-8-libquadmath-devel-8.3.1-3.2.el7.x86_64 devtoolset-8-runtime-8.1-1.el7.x86_64 devtoolset-8-gcc-gfortran-8.3.1-3.2.el7.x86_64
+RUN yum -y install devtoolset-8-gcc-c++-8.3.1-3.2.el7.x86_64 devtoolset-8-binutils-2.30-55.el7.2.x86_64 devtoolset-8-gcc-8.3.1-3.2.el7.x86_64 devtoolset-7-binutils-2.28-11.el7.x86_64
+RUN yum -y install devtoolset-8-libstdc++-devel-8.3.1-3.2.el7.x86_64 devtoolset-8-gcc-gdb-plugin-8.3.1-3.2.el7.x86_64 devtoolset-8-gcc-plugin-devel-8.3.1-3.2.el7.x86_64
+RUN yum -y install devtoolset-9-gcc-c++-9.3.1-2.el7.x86_64 devtoolset-9-binutils-2.32-16.el7.x86_64 devtoolset-9-gcc-gdb-plugin-9.3.1-2.el7.x86_64
+RUN yum -y install devtoolset-9-runtime-9.1-0.el7.x86_64 devtoolset-9-gcc-plugin-devel-9.3.1-2.el7.x86_64 devtoolset-9-libstdc++-devel-9.3.1-2.el7.x86_64
+RUN yum -y install devtoolset-9-gcc-gfortran-9.3.1-2.el7.x86_64 devtoolset-9-libquadmath-devel-9.3.1-2.el7.x86_64 devtoolset-9-gcc-9.3.1-2.el7.x86_64
+
 # install some additional packages that might be useful
 RUN yum -y install apr apr-util atlas autoconf automake bc cmake cmake3 git scons bzip2-devel boost-python36
 RUN yum -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mariadb mariadb-libs mariadb-devel
