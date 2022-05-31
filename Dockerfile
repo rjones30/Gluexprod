@@ -27,11 +27,14 @@ RUN rm libtbb.tgz
 # install the osg worker node client packages
 RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 # work-around for problems using the EPEL mirrors (repomd.xml does not match metalink for epel)
-RUN sed -i 's/^#baseurl/baseurl/' /etc/yum.repos.d/epel.repo
-RUN sed -i 's/^metalink/#metalink/' /etc/yum.repos.d/epel.repo
+#RUN sed -i 's/^#baseurl/baseurl/' /etc/yum.repos.d/epel.repo
+#RUN sed -i 's/^metalink/#metalink/' /etc/yum.repos.d/epel.repo
 # end of work-around
 RUN yum -y install yum-plugin-priorities
-RUN rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
+#COPY yum-plugin-priorities-1.1.31-54.el7_8.noarch.rpm /yum-plugin-priorities-1.1.31-54.el7_8.noarch.rpm
+#RUN rpm -ivh yum-plugin-priorities-1.1.31-54.el7_8.noarch.rpm
+#RUN rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
+RUN yum -y install https://repo.opensciencegrid.org/osg/3.6/osg-3.6-el7-release-latest.rpm
 RUN yum -y install osg-wn-client
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/dcache-srmclient-3.0.11-1.noarch.rpm
 RUN rpm -Uvh dcache-srmclient-3.0.11-1.noarch.rpm
@@ -45,11 +48,12 @@ RUN rm hdpm-0.7.2.linux.tar.gz
 RUN mv hdpm-0.7.2 hdpm
 
 # install the scl devtoolset packages to get more advanced gnu compilers
-RUN yum -y install devtoolset-4-runtime devtoolset-4-gcc-gdb-plugin devtoolset-4-gcc-gfortran devtoolset-4-gcc-c++ devtoolset-4-gcc 
-RUN yum -y install devtoolset-4-gcc-plugin-devel devtoolset-4-libstdc++-devel devtoolset-4-libquadmath-devel
-RUN yum -y install devtoolset-6-gcc-gdb-plugin-6.3.1-3.1.el7.x86_64 devtoolset-6-gcc-gfortran-6.3.1-3.1.el7.x86_64 devtoolset-6-runtime-6.1-1.el7.x86_64
-RUN yum -y install devtoolset-6-libquadmath-devel-6.3.1-3.1.el7.x86_64 devtoolset-6-libstdc++-devel-6.3.1-3.1.el7.x86_64 devtoolset-6-gcc-plugin-devel-6.3.1-3.1.el7.x86_64
-RUN yum -y install devtoolset-6-gcc-6.3.1-3.1.el7.x86_64 devtoolset-6-binutils-2.27-12.el7.1.x86_64 devtoolset-6-gcc-c++-6.3.1-3.1.el7.x86_64
+RUN yum -y install centos-release-scl-rh scl-utils
+#RUN yum -y install devtoolset-4-runtime devtoolset-4-gcc-gdb-plugin devtoolset-4-gcc-gfortran devtoolset-4-gcc-c++ devtoolset-4-gcc 
+#RUN yum -y install devtoolset-4-gcc-plugin-devel devtoolset-4-libstdc++-devel devtoolset-4-libquadmath-devel
+#RUN yum -y install devtoolset-6-gcc-gdb-plugin-6.3.1-3.1.el7.x86_64 devtoolset-6-gcc-gfortran-6.3.1-3.1.el7.x86_64 devtoolset-6-runtime-6.1-1.el7.x86_64
+#RUN yum -y install devtoolset-6-libquadmath-devel-6.3.1-3.1.el7.x86_64 devtoolset-6-libstdc++-devel-6.3.1-3.1.el7.x86_64 devtoolset-6-gcc-plugin-devel-6.3.1-3.1.el7.x86_64
+#RUN yum -y install devtoolset-6-gcc-6.3.1-3.1.el7.x86_64 devtoolset-6-binutils-2.27-12.el7.1.x86_64 devtoolset-6-gcc-c++-6.3.1-3.1.el7.x86_64
 RUN yum -y install devtoolset-7-gcc-c++-7.3.1-5.16.el7.x86_64 devtoolset-7-libquadmath-devel-7.3.1-5.16.el7.x86_64 devtoolset-7-libstdc++-devel-7.3.1-5.16.el7.x86_64
 RUN yum -y install devtoolset-7-gcc-gdb-plugin-7.3.1-5.16.el7.x86_64 devtoolset-7-binutils-2.28-11.el7.x86_64 devtoolset-7-gcc-plugin-devel-7.3.1-5.16.el7.x86_64
 RUN yum -y install devtoolset-7-gcc-7.3.1-5.16.el7.x86_64 devtoolset-7-runtime-7.1-4.el7.x86_64 devtoolset-6-binutils-2.27-12.el7.1.x86_64 devtoolset-7-gcc-gfortran-7.3.1-5.16.el7.x86_64
@@ -72,6 +76,8 @@ RUN pip2 install future numpy==1.16.6
 RUN pip3 install psycopg2
 RUN pip3 install --upgrade pip
 RUN python3 -m pip install numpy==1.19.5
+RUN python3 -m pip install scipy
+RUN python3 -m pip install tqdm
 
 # create mount point for sim-recon, simlinks in /usr/local
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
