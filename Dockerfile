@@ -65,7 +65,7 @@ RUN yum -y install devtoolset-9-runtime-9.1-0.el7.x86_64 devtoolset-9-gcc-plugin
 RUN yum -y install devtoolset-9-gcc-gfortran-9.3.1-2.el7.x86_64 devtoolset-9-libquadmath-devel-9.3.1-2.el7.x86_64 devtoolset-9-gcc-9.3.1-2.el7.x86_64
 
 # install some additional packages that might be useful
-RUN yum -y install apr apr-util atlas autoconf automake bc cmake cmake3 git scons bzip2-devel boost-python36
+RUN yum -y install apr apr-util atlas autoconf automake bc cmake cmake3 git scons bzip2-devel boost-python36 boost-python
 RUN yum -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mariadb mariadb-libs mariadb-devel
 RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-NamespaceSupport perl-XML-Parser perl-XML-SAX perl-XML-SAX-Base perl-XML-Simple perl-XML-Writer
 RUN yum -y install subversion subversion-libs
