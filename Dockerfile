@@ -79,6 +79,9 @@ RUN python3 -m pip install numpy==1.19.5
 RUN python3 -m pip install scipy
 RUN python3 -m pip install tqdm
 
+# add some packages that are needed for the kshell nuclear structure code
+RUN yum -y install ucx libevent openmp openmpi
+
 # create mount point for sim-recon, simlinks in /usr/local
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
 RUN mv /usr/sbin/sshd /usr/sbin/sshd_orig
