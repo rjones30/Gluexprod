@@ -72,6 +72,7 @@ RUN yum -y install subversion subversion-libs
 RUN yum -y install python2-pip python-devel
 RUN yum -y install hdf5 hdf5-devel
 RUN yum -y install valgrind
+RUN yum -y install gfal2-plugin-lfc gfal2-all gfal2-plugin-gridftp gfal2-devel gfal2-plugin-dcap gfal2-plugin-srm gfal2-plugin-rfio
 RUN pip2 install future numpy==1.16.6
 RUN pip3 install psycopg2
 RUN pip3 install --upgrade pip
