@@ -65,6 +65,7 @@ RUN yum -y install devtoolset-9-runtime-9.1-0.el7.x86_64 devtoolset-9-gcc-plugin
 RUN yum -y install devtoolset-9-gcc-gfortran-9.3.1-2.el7.x86_64 devtoolset-9-libquadmath-devel-9.3.1-2.el7.x86_64 devtoolset-9-gcc-9.3.1-2.el7.x86_64
 
 # install some additional packages that might be useful
+RUN yum -y install gfal2-plugin-lfc gfal2-all gfal2-plugin-gridftp gfal2-devel gfal2-plugin-dcap gfal2-plugin-srm gfal2-plugin-rfio
 RUN yum -y install apr apr-util atlas autoconf automake bc cmake cmake3 git scons bzip2-devel boost-python36 boost-python boost-system
 RUN yum -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mariadb mariadb-libs mariadb-devel
 RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-NamespaceSupport perl-XML-Parser perl-XML-SAX perl-XML-SAX-Base perl-XML-Simple perl-XML-Writer
@@ -72,7 +73,6 @@ RUN yum -y install subversion subversion-libs
 RUN yum -y install python2-pip python-devel
 RUN yum -y install hdf5 hdf5-devel
 RUN yum -y install valgrind
-RUN yum -y install gfal2-plugin-lfc gfal2-all gfal2-plugin-gridftp gfal2-devel gfal2-plugin-dcap gfal2-plugin-srm gfal2-plugin-rfio
 RUN pip2 install future numpy==1.16.6
 RUN pip3 install psycopg2
 RUN pip3 install --upgrade pip
@@ -92,6 +92,3 @@ RUN rm -rf /hdpm
 
 # make the cvmfs filesystem visible inside the container
 VOLUME /cvmfs/oasis.opensciencegrid.org
-
-# set the default build for sim_recon
-RUN ln -s /cvmfs/oasis.opensciencegrid.org/gluex/.hdpm /usr/local/
