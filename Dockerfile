@@ -21,7 +21,7 @@ RUN yum -y install blas lapack
 RUN yum -y install python3 python3-devel python3-pip
 RUN yum -y install postgresql-devel
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/libtbb.tgz
-RUN tar xf libtbb.tgz -C /
+RUN tar zxf libtbb.tgz -C /
 RUN rm libtbb.tgz
 
 # install the osg worker node client packages
@@ -43,7 +43,7 @@ RUN rm dcache-srmclient-3.0.11-1.noarch.rpm
 # install the hdpm package builder
 ENV GLUEX_TOP /usr/local
 ADD https://halldweb.jlab.org/dist/hdpm/hdpm-0.7.2.linux.tar.gz /
-RUN tar xf hdpm-0.7.2.linux.tar.gz
+RUN tar zxf hdpm-0.7.2.linux.tar.gz
 RUN rm hdpm-0.7.2.linux.tar.gz
 RUN mv hdpm-0.7.2 hdpm
 
@@ -86,7 +86,7 @@ RUN yum -y install ucx libevent openmp openmpi
 # create mount point for sim-recon, simlinks in /usr/local
 RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
 RUN mv /usr/sbin/sshd /usr/sbin/sshd_orig
-RUN tar xf local.tar.gz -C /
+RUN tar zxf local.tar.gz -C /
 RUN rm local.tar.gz
 RUN rm -rf /hdpm
 
