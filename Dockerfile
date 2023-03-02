@@ -73,9 +73,15 @@ RUN yum -y install subversion subversion-libs
 RUN yum -y install python2-pip python-devel
 RUN yum -y install hdf5 hdf5-devel
 RUN yum -y install valgrind
+RUN pip3 install --upgrade pip
 RUN pip2 install future numpy==1.16.6
 RUN pip3 install psycopg2
-RUN pip3 install --upgrade pip
+RUN pip3 install pandas
+RUN pip3 install h5py
+RUN pip3 install h5hep
+RUN pip3 install keras
+RUN pip3 install tensorflow
+RUN pip3 install tensorflow_decision_forests
 RUN python3 -m pip install numpy==1.19.5
 RUN python3 -m pip install scipy
 RUN python3 -m pip install tqdm
