@@ -81,10 +81,12 @@ RUN pip3 install h5py
 RUN pip3 install h5hep
 RUN pip3 install keras
 RUN pip3 install tensorflow
-RUN pip3 install tensorflow_decision_forests
+#RUN pip3 install tensorflow_decision_forests
 RUN python3 -m pip install numpy==1.19.5
 RUN python3 -m pip install scipy
 RUN python3 -m pip install tqdm
+RUN python3 -m pip install jupyterhub
+RUN python3 -m pip install jupyterlab notebook
 
 # add some packages that are needed for the kshell nuclear structure code
 RUN yum -y install ucx libevent openmp openmpi openmpi-devel
