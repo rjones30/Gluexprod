@@ -1,102 +1,100 @@
 #
 # Dockerfile - docker build script for a standard GlueX sim-recon 
-#              container image based on centos 7.
+#              container image based on alma linux 9.
 #
 # author: richard.t.jones at uconn.edu
-# version: june 7, 2017
-# updated: june 13, 2020 
+# version: october 17 2023
 #
 # usage: [as root] $ docker build Dockerfile .
 #
 
-FROM centos:7
+FROM docker.io/almalinux:9
+
+# install the necessary yum repositories
+RUN dnf -y update
+RUN dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+RUN grep 'enabled=1' /etc/yum.repos.d/epel.repo
+RUN /usr/bin/crb enable
+RUN dnf -y install https://repo.opensciencegrid.org/osg/25-main/osg-25-main-el9-release-latest.rpm
+RUN grep 'enabled=1' /etc/yum.repos.d/osg.repo
 
 # install a few utility rpms
-RUN yum -y install bind-utils util-linux which wget tar procps less file dump gcc gcc-c++ gcc-gfortran gdb gdb-gdbserver strace openssh-server
-RUN yum -y install vim-common vim-filesystem docker-io-vim vim-minimal vim-enhanced vim-X11
-RUN yum -y install qt qt-x11 qt-devel
-RUN yum -y install motif-devel libXpm-devel libXmu-devel libXp-devel
-RUN yum -y install java-1.8.0-openjdk
-RUN yum -y install blas lapack blas-devel lapack-devel
-RUN yum -y install python3 python3-devel python3-pip
-RUN yum -y install postgresql-devel
-RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/libtbb.tgz
-RUN tar zxf libtbb.tgz -C /
-RUN rm libtbb.tgz
+RUN dnf -y install dnf dnf-plugins-core
+RUN dnf -y install python-unversioned-command
+RUN dnf -y install subversion cmake make imake python3-scons patch git
+RUN dnf -y install libtool which bc nano nmap-ncat xterm emacs gdb wget
+RUN dnf -y install gcc-c++ gcc-gfortran boost-devel gdb-gdbserver
+RUN dnf -y install bind-utils blas blas-devel dump file tcsh expat-devel
+RUN dnf -y install libXt-devel openmotif-devel libXpm-devel bzip2-devel
+RUN dnf -y install perl-XML-Simple perl-XML-Writer perl-File-Slurp
+RUN dnf -y install mesa-libGLU-devel gsl-devel python3-future python3-devel
+RUN dnf -y install xrootd-client-libs xrootd-client libXi-devel neon
+RUN dnf -y install mariadb mariadb-devel python3-mysqlclient python3-psycopg2
+RUN dnf -y install fmt-devel libtirpc-devel atlas rsync vim
+RUN dnf -y install gfal2-all gfal2-devel gfal2-plugin-dcap gfal2-plugin-gridftp gfal2-plugin-srm
+RUN dnf -y install hdf5 hdf5-devel pakchois perl-Test-Harness sqlite sqlite-devel
+RUN dnf -y install java-1.8.0-openjdk java-1.8.0-openjdk-devel java-11-openjdk-devel
+RUN dnf -y install java-17-openjdk-devel java-latest-openjdk-devel java-hdf5 java-runtime-decompiler
+RUN dnf -y install lapack lapack-devel openmpi openmpi-devel xalan-j2
+RUN dnf -y install openssh-server postgresql-server-devel postgresql-upgrade-devel
+RUN dnf -y install procps-ng strace ucx valgrind xerces-c xerces-c-devel xerces-c-doc
+RUN dnf -y install qt5 qt5-qtx11extras qt5-devel openblas-devel libnsl2-devel
+RUN dnf -y install libcurl-devel uClibc-devel
+
+# install the cern root suite
+RUN dnf -y install root root-cling root-fftw root-foam root-fonts root-fumili \
+ root-gdml root-genetic root-genvector root-geom root-geom-builder \
+ root-geom-painter root-geom-webviewer root-graf root-graf-asimage \
+ root-graf-fitsio root-graf-gpad root-graf-gpadv7 root-graf-gviz \
+ root-graf-postscript root-graf-primitives root-graf-x11 root-graf3d \
+ root-graf3d-csg root-graf3d-eve root-graf3d-eve7 root-graf3d-gl \
+ root-graf3d-gviz3d root-graf3d-x3d \
+ root-hbook root-hist root-hist-factory root-hist-painter \
+ root-histv7 root-icons root-io root-io-dcache \
+ root-io-sql root-io-xml root-io-xmlparser root-mathcore root-mathmore \
+ root-matrix root-minuit root-minuit2 root-mlp root-montecarlo-eg \
+ root-montecarlo-pythia8 root-multiproc root-net root-net-auth \
+ root-net-davix root-net-http root-net-httpsniff root-net-rpdutils \
+ root-netx root-notebook root-physics root-quadp root-r root-r-tools \
+ root-roofit root-roofit-batchcompute root-roofit-core \
+ root-roofit-hs3 root-roofit-jsoninterface \
+ root-roofit-more root-roostats root-smatrix \
+ root-spectrum root-spectrum-painter root-splot \
+ root-sql-sqlite root-testsupport \
+ root-tmva root-tmva-gui root-tmva-python root-tmva-r root-tmva-sofie \
+ root-tmva-sofie-parser root-tmva-utils root-tpython root-tree \
+ root-tree-dataframe root-tree-ntuple root-tree-ntuple-utils \
+ root-tree-player root-tree-viewer root-tree-webviewer root-unfold \
+ root-unuran root-vecops root-xroofit
+# root packages removed from the list for unsatisfied dependencies
+# root-gui-qt5webdisplay root-gui-qt6webdisplay
+# root-gui-browserv7 root-gui-builder root-gui-canvaspainter root-gui-fitpanel
+# root-gui-fitpanelv7 root-gui-ged root-gui-html root-gui-webdisplay
+# root root-gui-recorder root-gui-webgui6 # root-gui root-gui-browsable
+RUN dnf -y install HepMC3-rootIO python3-HepMC3-rootIO python3-jupyroot python3-root
 
 # install the osg worker node client packages
-RUN rpm -Uvh https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-# work-around for problems using the EPEL mirrors (repomd.xml does not match metalink for epel)
-#RUN sed -i 's/^#baseurl/baseurl/' /etc/yum.repos.d/epel.repo
-#RUN sed -i 's/^metalink/#metalink/' /etc/yum.repos.d/epel.repo
-# end of work-around
-RUN yum -y install yum-plugin-priorities
-#COPY yum-plugin-priorities-1.1.31-54.el7_8.noarch.rpm /yum-plugin-priorities-1.1.31-54.el7_8.noarch.rpm
-#RUN rpm -ivh yum-plugin-priorities-1.1.31-54.el7_8.noarch.rpm
-#RUN rpm -Uvh https://repo.opensciencegrid.org/osg/3.4/osg-3.4-el7-release-latest.rpm
-RUN yum -y install https://repo.opensciencegrid.org/osg/3.6/osg-3.6-el7-release-latest.rpm
-RUN yum -y install osg-wn-client
-RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/dcache-srmclient-3.0.11-1.noarch.rpm
-RUN rpm -Uvh dcache-srmclient-3.0.11-1.noarch.rpm
-RUN rm dcache-srmclient-3.0.11-1.noarch.rpm
+RUN dnf -y install osg-ca-certs
+RUN dnf -y install osg-wn-client
+RUN dnf -y install python3-h5py python3-scipy python3-tqdm
 
-# install the hdpm package builder
-ENV GLUEX_TOP /usr/local
-ADD https://halldweb.jlab.org/dist/hdpm/hdpm-0.7.2.linux.tar.gz /
-RUN tar zxf hdpm-0.7.2.linux.tar.gz
-RUN rm hdpm-0.7.2.linux.tar.gz
-RUN mv hdpm-0.7.2 hdpm
+# install some dcache client tools
+RUN dnf -y install https://zeus.phys.uconn.edu/halld/gridwork/dcache-srmclient-3.0.11-1.noarch.rpm
 
-# install the scl devtoolset packages to get more advanced gnu compilers
-RUN yum -y install centos-release-scl-rh scl-utils
-#RUN yum -y install devtoolset-4-runtime devtoolset-4-gcc-gdb-plugin devtoolset-4-gcc-gfortran devtoolset-4-gcc-c++ devtoolset-4-gcc 
-#RUN yum -y install devtoolset-4-gcc-plugin-devel devtoolset-4-libstdc++-devel devtoolset-4-libquadmath-devel
-#RUN yum -y install devtoolset-6-gcc-gdb-plugin-6.3.1-3.1.el7.x86_64 devtoolset-6-gcc-gfortran-6.3.1-3.1.el7.x86_64 devtoolset-6-runtime-6.1-1.el7.x86_64
-#RUN yum -y install devtoolset-6-libquadmath-devel-6.3.1-3.1.el7.x86_64 devtoolset-6-libstdc++-devel-6.3.1-3.1.el7.x86_64 devtoolset-6-gcc-plugin-devel-6.3.1-3.1.el7.x86_64
-#RUN yum -y install devtoolset-6-gcc-6.3.1-3.1.el7.x86_64 devtoolset-6-binutils-2.27-12.el7.1.x86_64 devtoolset-6-gcc-c++-6.3.1-3.1.el7.x86_64
-RUN yum -y install devtoolset-7-gcc-c++-7.3.1-5.16.el7.x86_64 devtoolset-7-libquadmath-devel-7.3.1-5.16.el7.x86_64 devtoolset-7-libstdc++-devel-7.3.1-5.16.el7.x86_64
-RUN yum -y install devtoolset-7-gcc-gdb-plugin-7.3.1-5.16.el7.x86_64 devtoolset-7-binutils-2.28-11.el7.x86_64 devtoolset-7-gcc-plugin-devel-7.3.1-5.16.el7.x86_64
-RUN yum -y install devtoolset-7-gcc-7.3.1-5.16.el7.x86_64 devtoolset-7-runtime-7.1-4.el7.x86_64 devtoolset-6-binutils-2.27-12.el7.1.x86_64 devtoolset-7-gcc-gfortran-7.3.1-5.16.el7.x86_64
-RUN yum -y install devtoolset-8-libquadmath-devel-8.3.1-3.2.el7.x86_64 devtoolset-8-runtime-8.1-1.el7.x86_64 devtoolset-8-gcc-gfortran-8.3.1-3.2.el7.x86_64
-RUN yum -y install devtoolset-8-gcc-c++-8.3.1-3.2.el7.x86_64 devtoolset-8-binutils-2.30-55.el7.2.x86_64 devtoolset-8-gcc-8.3.1-3.2.el7.x86_64 devtoolset-7-binutils-2.28-11.el7.x86_64
-RUN yum -y install devtoolset-8-libstdc++-devel-8.3.1-3.2.el7.x86_64 devtoolset-8-gcc-gdb-plugin-8.3.1-3.2.el7.x86_64 devtoolset-8-gcc-plugin-devel-8.3.1-3.2.el7.x86_64
-RUN yum -y install devtoolset-9-gcc-c++-9.3.1-2.el7.x86_64 devtoolset-9-binutils-2.32-16.el7.x86_64 devtoolset-9-gcc-gdb-plugin-9.3.1-2.el7.x86_64
-RUN yum -y install devtoolset-9-runtime-9.1-0.el7.x86_64 devtoolset-9-gcc-plugin-devel-9.3.1-2.el7.x86_64 devtoolset-9-libstdc++-devel-9.3.1-2.el7.x86_64
-RUN yum -y install devtoolset-9-gcc-gfortran-9.3.1-2.el7.x86_64 devtoolset-9-libquadmath-devel-9.3.1-2.el7.x86_64 devtoolset-9-gcc-9.3.1-2.el7.x86_64
-
-# install some additional packages that might be useful
-RUN yum -y install gfal2-plugin-lfc gfal2-all gfal2-plugin-gridftp gfal2-devel gfal2-plugin-dcap gfal2-plugin-srm gfal2-plugin-rfio
-RUN yum -y install apr apr-util atlas autoconf automake bc cmake cmake3 git scons bzip2-devel boost-python36 boost-python boost-system
-RUN yum -y install gsl gsl-devel libgnome-keyring lyx-fonts m4 neon pakchois mariadb mariadb-libs mariadb-devel
-RUN yum -y install perl-File-Slurp perl-Test-Harness perl-Thread-Queue perl-XML-NamespaceSupport perl-XML-Parser perl-XML-SAX perl-XML-SAX-Base perl-XML-Simple perl-XML-Writer
-RUN yum -y install subversion subversion-libs
-RUN yum -y install python2-pip python-devel
-RUN yum -y install hdf5 hdf5-devel
-RUN yum -y install valgrind
-RUN pip3 install --upgrade pip
-RUN pip2 install future numpy==1.16.6
-RUN pip3 install psycopg2
+# install some python modules
 RUN pip3 install pandas
-RUN pip3 install h5py
 RUN pip3 install h5hep
 RUN pip3 install keras
-RUN pip3 install tensorflow
-#RUN pip3 install tensorflow_decision_forests
-RUN python3 -m pip install numpy==1.19.5
-RUN python3 -m pip install scipy
-RUN python3 -m pip install tqdm
-RUN python3 -m pip install jupyterhub
-RUN python3 -m pip install jupyterlab notebook
+RUN pip3 install tensorflow==2.13.1 tensorflow-decision-forests==1.5.0 && pip3 cache purge
+RUN pip3 install uproot awkward
 
-# add some packages that are needed for the kshell nuclear structure code
-RUN yum -y install ucx libevent openmp openmpi openmpi-devel
-
-# create mount point for sim-recon, simlinks in /usr/local
-RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local.tar.gz
-RUN mv /usr/sbin/sshd /usr/sbin/sshd_orig
-RUN tar zxf local.tar.gz -C /
-RUN rm local.tar.gz
-RUN rm -rf /hdpm
+# create custom points, symlinks for gluex software
+RUN wget --no-check-certificate https://zeus.phys.uconn.edu/halld/gridwork/local9.tar.gz
+RUN tar -zxf local9.tar.gz --owner=root --group=root -C /
+RUN rm local9.tar.gz
 
 # make the cvmfs filesystem visible inside the container
 VOLUME /cvmfs/oasis.opensciencegrid.org
+
+# needed for token refresh in jobs, no idea why wn-client dropped it :(
+RUN dnf -y install htgettoken
